@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -24,6 +24,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import * as LocalAuthentication from 'expo-local-authentication';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -61,6 +63,10 @@ function App(): JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  useEffect(() => {
+    LocalAuthentication.authenticateAsync();
+  });
 
   return (
     <SafeAreaView style={backgroundStyle}>
