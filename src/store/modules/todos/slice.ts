@@ -1,6 +1,6 @@
 import type {PayloadAction} from '@reduxjs/toolkit';
 import {createSlice} from '@reduxjs/toolkit';
-import type {TodosState} from './types';
+import type {TodosState, UpdateTodoType} from './types';
 import uuid from 'uuid-random';
 
 const initialState: TodosState = {
@@ -66,7 +66,7 @@ export const todosSlice = createSlice({
     /**
      * Pass it to dispatch from useAppDispatch() with ID and a new text to update the Todo item
      */
-    updateTodo: (state, action: PayloadAction<{id: string; title: string}>) => {
+    updateTodo: (state, action: PayloadAction<UpdateTodoType>) => {
       state.todoList = state.todoList.map(item => {
         if (item.id === action.payload.id) {
           return {

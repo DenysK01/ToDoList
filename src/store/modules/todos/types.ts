@@ -21,3 +21,8 @@ export type TodosState = {
    */
   readonly todoList: Array<TodoItem>;
 };
+
+/**
+ * necessary fields to update a Todo item
+ */
+export type UpdateTodoType = Omit<TodoItem, 'isChecked'>;

@@ -25,6 +25,7 @@ function Home() {
         <View>
           <Text style={styles.header}>Todo:</Text>
           <FlatList
+            testID="flatlist"
             keyExtractor={item => item.id}
             data={todoList}
             renderItem={({item}) => <RenderItem item={item} />}
