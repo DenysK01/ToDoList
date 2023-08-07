@@ -1,10 +1,11 @@
 import React, {useLayoutEffect, useState} from 'react';
-import {AppState, Button, Text, View} from 'react-native';
+import {AppState, SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import {openSecuritySettings} from '~helpers/auth';
 import {useAppDispatch} from '~store/hooks';
 import {setAuthenticated} from '~store/modules/auth/slice';
 import {showErrorSnackbar, showSuccessSnackbar} from '~helpers/snackbar';
+import styles from './styles';
 
 function Authentication() {
   const dispatch = useAppDispatch();
@@ -48,8 +49,8 @@ function Authentication() {
   }, []);
 
   return (
-    <View>
-      <Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>
         {
           /* If the user doesn't have enrolled authentication we offer him to do so */
           isAuthEnrolled
@@ -59,10 +60,16 @@ function Authentication() {
       </Text>
       {
         /* Show the 'Authenticate' button only if user has enrolled authentication */
-        isAuthEnrolled && <Button title="Authenticate" onPress={startAuth} />
+        isAuthEnrolled && (
+          <TouchableOpacity style={styles.button} onPress={startAuth}>
+            <Text style={styles.buttonText}>Authenticate</Text>
+          </TouchableOpacity>
+        )
       }
-      <Button title="Open Settings" onPress={openSecuritySettings} />
-    </View>
+      <TouchableOpacity style={styles.button} onPress={openSecuritySettings}>
+        <Text style={styles.buttonText}>Open Settings</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 }
 

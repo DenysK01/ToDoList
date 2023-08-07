@@ -25,3 +25,13 @@ React Native App
 ### Running on Android
 
 1. Run on Android emulator `npm run android`
+
+
+### Running tests
+
+- Run in terminal `npm test`
+
+
+### User flow
+
+- User flow is described in [userFlow.md](./documentation/userFlow.md)

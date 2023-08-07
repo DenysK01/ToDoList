@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useAppDispatch} from '~store/hooks';
 import {toggleTodo, deleteTodo, updateTodo} from '~store/modules/todos/slice';
 import {TodoItem} from '~store/modules/todos/types';
+import styles from './styles';
 
 type Props = {
   item: TodoItem;
@@ -49,32 +50,52 @@ function RenderItem(props: Props) {
   // if editing mode is enabled render the text input and button to save changes
   if (isEditing) {
     return (
-      <View>
+      <View style={styles.container}>
         <TextInput
+          style={styles.textInput}
           value={updatedTitle}
           onChangeText={text => setUpdatedTitle(text)}
           placeholder="Enter here"
         />
-        <Button title="SAVE" onPress={onUpdateTodo} disabled={!updatedTitle} />
+        <TouchableOpacity
+          style={[styles.button, styles.editButton]}
+          onPress={onUpdateTodo}
+          disabled={!updatedTitle}>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 
   return (
-    <View>
-      <View>
-        <View>
-          <Button title="X" onPress={onToggleTodo} />
-          <View>
-            {/* draw a line through the title if current item is checked */}
-            <Text
-              style={[item.isChecked && {textDecorationLine: 'line-through'}]}>
-              {item.title}
-            </Text>
-          </View>
-        </View>
-        <Button title="edit" onPress={editTodo} />
-        <Button title="delete" onPress={onDeleteTodo} />
+    <View style={styles.container}>
+      <View style={styles.wrap}>
+        <TouchableOpacity
+          style={[styles.button, styles.checkButton]}
+          onPress={onToggleTodo}>
+          <Text style={styles.buttonText}>X</Text>
+        </TouchableOpacity>
+
+        {/* draw a line through the title if current item is checked */}
+        <Text
+          style={[
+            styles.text,
+            item.isChecked && {textDecorationLine: 'line-through'},
+          ]}>
+          {item.title}
+        </Text>
+      </View>
+      <View style={styles.buttonsWrap}>
+        <TouchableOpacity
+          style={[styles.button, styles.editButton]}
+          onPress={editTodo}>
+          <Text style={styles.buttonText}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.deleteButton]}
+          onPress={onDeleteTodo}>
+          <Text style={styles.buttonText}>Delete</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
